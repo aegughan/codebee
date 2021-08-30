@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const { exec } = require("child_process");
+const { tmpJSFile } = require("./commonPath.js")
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -18,6 +20,29 @@ app.post('/api/world', (req, res) => {
   res.send(
     `I received your POST request. This is what you sent me: ${req.body.post}`,
   );
+});
+
+app.post('/api/execute', async (req, res) => { 
+    const { code } = req.body
+    fs.writeFile(`${tmpJSFile}`, code, err => {
+    if (err) {
+        console.error(err)
+        return
+    }
+    console.log("File written successfully")
+    })
+    await exec(`node ${tmpJSFile}`, (error, stdout, stderr) => {
+        if (error) {
+            res.send({output: error.message});
+            return;
+        }
+        if (stderr) {
+            console.log(`stderr: ${stderr}`);
+            res.send({output: stderr});
+            return;
+        }
+        res.send({output: stdout});
+    });
 });
 
 if (process.env.NODE_ENV === 'production') {
