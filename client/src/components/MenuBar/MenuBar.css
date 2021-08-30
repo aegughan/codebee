@@ -1,0 +1,8 @@
+.menubar {
+    background: azure;
+    padding: 16px;
+    display: flex;
+}
+.menubar > div {
+    margin: 0px 15px;
+}

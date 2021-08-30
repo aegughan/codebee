@@ -1,0 +1,9 @@
+#codeData {
+    width: 100%;
+    height: calc(100vh - 100px);
+}
+.aceEditor {
+    width: 100% !important;
+    height: calc(100vh - 100px) !important;
+    font-size: 12px;
+}
