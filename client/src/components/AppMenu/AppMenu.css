@@ -1,0 +1,13 @@
+.AppMenu {
+	display: flex;
+}
+
+.AppMenu .subMenu {
+	padding: 10px;
+	cursor: pointer;
+}
+
+.AppMenu .subMenu.active {
+	background-color: blue;
+	color: white;
+}
